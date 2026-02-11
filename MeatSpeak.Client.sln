@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeatSpeak.Client.Core.Tests", "tests\MeatSpeak.Client.Core.Tests\MeatSpeak.Client.Core.Tests.csproj", "{C1000001-0000-0000-0000-000000000001}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeatSpeak.Client.Audio.Tests", "tests\MeatSpeak.Client.Audio.Tests\MeatSpeak.Client.Audio.Tests.csproj", "{C1000002-0000-0000-0000-000000000002}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeatSpeak.Client.Tests", "tests\MeatSpeak.Client.Tests\MeatSpeak.Client.Tests.csproj", "{6A6C9ED1-CA5A-4BAC-8C4F-E6E353C8B684}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{C1000002-0000-0000-0000-000000000002}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1000002-0000-0000-0000-000000000002}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1000002-0000-0000-0000-000000000002}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A6C9ED1-CA5A-4BAC-8C4F-E6E353C8B684}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A6C9ED1-CA5A-4BAC-8C4F-E6E353C8B684}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A6C9ED1-CA5A-4BAC-8C4F-E6E353C8B684}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A6C9ED1-CA5A-4BAC-8C4F-E6E353C8B684}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B1000001-0000-0000-0000-000000000001} = {A1B2C3D4-0001-0000-0000-000000000000}
@@ -50,5 +56,6 @@ Global
 		{B1000003-0000-0000-0000-000000000003} = {A1B2C3D4-0001-0000-0000-000000000000}
 		{C1000001-0000-0000-0000-000000000001} = {A1B2C3D4-0002-0000-0000-000000000000}
 		{C1000002-0000-0000-0000-000000000002} = {A1B2C3D4-0002-0000-0000-000000000000}
+		{6A6C9ED1-CA5A-4BAC-8C4F-E6E353C8B684} = {A1B2C3D4-0002-0000-0000-000000000000}
 	EndGlobalSection
 EndGlobal

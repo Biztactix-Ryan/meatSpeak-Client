@@ -72,4 +72,43 @@ public class ChannelStateTests
         Assert.Null(channel.FindMember("alice"));
         Assert.NotNull(channel.FindMember("bob"));
     }
+
+    [Fact]
+    public void Bans_InitiallyEmpty()
+    {
+        var channel = new ChannelState("#test");
+        Assert.Empty(channel.Bans);
+    }
+
+    [Fact]
+    public void Bans_CanAddAndRetrieve()
+    {
+        var channel = new ChannelState("#test");
+        var ban = new BanEntry("*!bad@host", "op", DateTimeOffset.UtcNow);
+        channel.Bans.Add(ban);
+
+        Assert.Single(channel.Bans);
+        Assert.Equal("*!bad@host", channel.Bans[0].Mask);
+        Assert.Equal("op", channel.Bans[0].SetBy);
+    }
+
+    [Fact]
+    public void RaiseMemberPrefixChanged_FiresEvent()
+    {
+        var channel = new ChannelState("#test");
+        var fired = false;
+        channel.MemberPrefixChanged += () => fired = true;
+
+        channel.RaiseMemberPrefixChanged();
+
+        Assert.True(fired);
+    }
+
+    [Fact]
+    public void RaiseMemberPrefixChanged_NoSubscribers_DoesNotThrow()
+    {
+        var channel = new ChannelState("#test");
+        var exception = Record.Exception(() => channel.RaiseMemberPrefixChanged());
+        Assert.Null(exception);
+    }
 }

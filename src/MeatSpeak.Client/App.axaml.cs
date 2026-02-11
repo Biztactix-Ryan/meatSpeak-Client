@@ -110,6 +110,7 @@ public partial class App : Application
         dispatcher.Register(new SaslHandler());
         dispatcher.Register(new VoiceStateHandler());
         dispatcher.Register(new VoiceNumericHandler());
+        dispatcher.Register(new BanListHandler());
         return dispatcher;
     }
 }

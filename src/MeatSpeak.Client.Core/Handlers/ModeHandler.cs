@@ -63,6 +63,8 @@ public sealed class ModeHandler : IMessageHandler
             }
         }
 
+        channel.RaiseMemberPrefixChanged();
+
         // Build mode change summary
         var paramsList = new List<string>();
         for (int i = 2; i < message.Parameters.Count; i++)

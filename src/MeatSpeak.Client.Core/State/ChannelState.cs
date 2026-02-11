@@ -17,6 +17,11 @@ public partial class ChannelState : ObservableObject
 
     public ObservableCollection<ChatMessage> Messages { get; } = [];
     public ObservableCollection<UserState> Members { get; } = [];
+    public ObservableCollection<BanEntry> Bans { get; } = [];
+
+    public event Action? MemberPrefixChanged;
+
+    public void RaiseMemberPrefixChanged() => MemberPrefixChanged?.Invoke();
 
     public ChannelState(string name)
     {

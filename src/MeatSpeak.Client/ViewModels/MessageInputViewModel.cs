@@ -155,6 +155,36 @@ public partial class MessageInputViewModel : ViewModelBase
                 await connection.DisconnectAsync(string.IsNullOrWhiteSpace(args) ? "Leaving" : args);
                 break;
 
+            case "/op":
+                if (!string.IsNullOrWhiteSpace(args))
+                    await connection.SendAsync($"MODE {target} +o {args.Trim()}");
+                break;
+
+            case "/deop":
+                if (!string.IsNullOrWhiteSpace(args))
+                    await connection.SendAsync($"MODE {target} -o {args.Trim()}");
+                break;
+
+            case "/voice":
+                if (!string.IsNullOrWhiteSpace(args))
+                    await connection.SendAsync($"MODE {target} +v {args.Trim()}");
+                break;
+
+            case "/devoice":
+                if (!string.IsNullOrWhiteSpace(args))
+                    await connection.SendAsync($"MODE {target} -v {args.Trim()}");
+                break;
+
+            case "/ban":
+                if (!string.IsNullOrWhiteSpace(args))
+                    await connection.SendAsync($"MODE {target} +b {args.Trim()}");
+                break;
+
+            case "/unban":
+                if (!string.IsNullOrWhiteSpace(args))
+                    await connection.SendAsync($"MODE {target} -b {args.Trim()}");
+                break;
+
             case "/raw":
                 if (!string.IsNullOrWhiteSpace(args))
                     await connection.SendAsync(args);
