@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MeatSpeak.Client.ViewModels"
+             x:Class="MeatSpeak.Client.Views.VoiceStatusBar"
+             x:DataType="vm:VoiceStatusBarViewModel"
+             IsVisible="{Binding IsVisible}">
+
+    <Border Background="{StaticResource VoiceBarBgBrush}"
+            Height="52"
+            Padding="16,0">
+        <DockPanel>
+            <!-- Disconnect button -->
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="8"
+                        VerticalAlignment="Center">
+                <Button Command="{Binding ToggleMuteCommand}"
+                        Background="Transparent" Padding="8">
+                    <TextBlock Text="{Binding IsMuted, StringFormat='{}{0}'}"
+                               Foreground="{StaticResource TextSecondaryBrush}" />
+                </Button>
+                <Button Command="{Binding ToggleDeafenCommand}"
+                        Background="Transparent" Padding="8">
+                    <TextBlock Text="D"
+                               Foreground="{StaticResource TextSecondaryBrush}" />
+                </Button>
+                <Button Command="{Binding DisconnectVoiceCommand}"
+                        Background="#ED4245" CornerRadius="4"
+                        Padding="12,6">
+                    <TextBlock Text="Disconnect" Foreground="White" FontSize="13" />
+                </Button>
+            </StackPanel>
+
+            <!-- Channel + user info -->
+            <StackPanel Orientation="Horizontal" Spacing="12"
+                        VerticalAlignment="Center">
+                <Ellipse Width="10" Height="10" Fill="#3BA55D" />
+                <StackPanel>
+                    <TextBlock Text="Voice Connected"
+                               Foreground="#3BA55D"
+                               FontSize="13" FontWeight="SemiBold" />
+                    <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="12">
+                        <Run Text="{Binding ChannelName}" />
+                        <Run Text=" · " />
+                        <Run Text="{Binding UserName}" />
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </DockPanel>
+    </Border>
+</UserControl>

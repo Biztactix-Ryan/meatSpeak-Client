@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:state="using:MeatSpeak.Client.Core.State"
+             x:Class="MeatSpeak.Client.Controls.ServerIcon"
+             x:DataType="state:ServerState">
+
+    <Button Background="Transparent"
+            Padding="0"
+            HorizontalAlignment="Center"
+            ToolTip.Tip="{Binding Profile.Name}">
+        <Panel>
+            <!-- Server circle -->
+            <Border Width="48" Height="48"
+                    CornerRadius="24"
+                    Background="#36393F"
+                    HorizontalAlignment="Center">
+                <TextBlock Text="{Binding Profile.Name, FallbackValue=?}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Foreground="{StaticResource TextPrimaryBrush}"
+                           FontSize="16" FontWeight="SemiBold" />
+            </Border>
+
+            <!-- Connection status indicator -->
+            <Ellipse Width="12" Height="12"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Bottom"
+                     Margin="0,0,2,2">
+                <Ellipse.Styles>
+                    <Style Selector="Ellipse">
+                        <Setter Property="Fill" Value="#747F8D" />
+                    </Style>
+                </Ellipse.Styles>
+            </Ellipse>
+        </Panel>
+    </Button>
+</UserControl>

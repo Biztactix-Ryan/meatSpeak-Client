@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MeatSpeak.Client.ViewModels"
+             xmlns:controls="using:MeatSpeak.Client.Controls"
+             x:Class="MeatSpeak.Client.Views.ServerListView"
+             x:DataType="vm:ServerListViewModel"
+             Background="{StaticResource ServerListBgBrush}">
+
+    <DockPanel>
+        <!-- Bottom buttons -->
+        <StackPanel DockPanel.Dock="Bottom" Spacing="8" Margin="0,8,0,8"
+                    HorizontalAlignment="Center">
+            <!-- Add Server -->
+            <Button Command="{Binding OpenAddServerCommand}"
+                    Width="48" Height="48"
+                    CornerRadius="24"
+                    Background="#36393F"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center">
+                <TextBlock Text="+" FontSize="24"
+                           Foreground="#3BA55D"
+                           HorizontalAlignment="Center" />
+            </Button>
+
+            <!-- Separator -->
+            <Border Height="2" Width="32"
+                    Background="{StaticResource SeparatorBrush}"
+                    HorizontalAlignment="Center" />
+
+            <!-- Settings -->
+            <Button Width="48" Height="48"
+                    CornerRadius="24"
+                    Background="#36393F"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center">
+                <TextBlock Text="S" FontSize="16"
+                           Foreground="{StaticResource TextSecondaryBrush}" />
+            </Button>
+        </StackPanel>
+
+        <!-- Server Icons -->
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding ClientState.Servers}"
+                          Margin="0,12,0,0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <controls:ServerIcon Margin="0,0,0,8" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

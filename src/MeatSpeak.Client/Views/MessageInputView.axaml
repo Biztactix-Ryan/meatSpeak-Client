@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MeatSpeak.Client.ViewModels"
+             x:Class="MeatSpeak.Client.Views.MessageInputView"
+             x:DataType="vm:MessageInputViewModel">
+
+    <Border Margin="16,0,16,16"
+            Background="{StaticResource InputBgBrush}"
+            CornerRadius="8"
+            Padding="4">
+        <Grid ColumnDefinitions="*,Auto">
+            <TextBox Grid.Column="0"
+                     Text="{Binding MessageText, Mode=TwoWay}"
+                     Watermark="{Binding Placeholder}"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     Foreground="{StaticResource TextPrimaryBrush}"
+                     FontSize="14"
+                     Padding="12,10"
+                     AcceptsReturn="False"
+                     KeyDown="OnKeyDown" />
+
+            <Button Grid.Column="1"
+                    Command="{Binding SendMessageCommand}"
+                    Background="Transparent"
+                    Padding="12,8"
+                    VerticalAlignment="Center">
+                <TextBlock Text="Send"
+                           Foreground="{StaticResource AccentBrush}"
+                           FontSize="14" />
+            </Button>
+        </Grid>
+    </Border>
+</UserControl>

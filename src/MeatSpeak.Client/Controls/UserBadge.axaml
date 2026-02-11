@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:state="using:MeatSpeak.Client.Core.State"
+             xmlns:conv="using:MeatSpeak.Client.Converters"
+             x:Class="MeatSpeak.Client.Controls.UserBadge"
+             x:DataType="state:UserState">
+
+    <UserControl.Resources>
+        <conv:NickColorConverter x:Key="NickColorConverter" />
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Horizontal" Spacing="8">
+        <!-- Avatar placeholder -->
+        <Ellipse Width="32" Height="32" Fill="#36393F" />
+
+        <StackPanel VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding ChannelPrefix}"
+                           Foreground="{StaticResource TextMutedBrush}" FontSize="13" />
+                <TextBlock Text="{Binding Nick}"
+                           Foreground="{Binding Nick, Converter={StaticResource NickColorConverter}}"
+                           FontSize="14" />
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

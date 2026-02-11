@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MeatSpeak.Client.ViewModels"
+             xmlns:views="using:MeatSpeak.Client.Views"
+             xmlns:state="using:MeatSpeak.Client.Core.State"
+             xmlns:conv="using:MeatSpeak.Client.Converters"
+             x:Class="MeatSpeak.Client.Views.ChatView"
+             x:DataType="vm:ChatViewModel"
+             Background="{StaticResource ChatBgBrush}">
+
+    <UserControl.Resources>
+        <conv:TimestampConverter x:Key="TimestampConverter" />
+        <conv:NickColorConverter x:Key="NickColorConverter" />
+    </UserControl.Resources>
+
+    <Panel>
+        <!-- Empty state -->
+        <TextBlock Text="Select a channel to start chatting"
+                   Foreground="{StaticResource TextMutedBrush}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="16"
+                   IsVisible="{Binding !HasChannel}" />
+
+        <!-- Message List -->
+        <ListBox ItemsSource="{Binding Messages}"
+                 IsVisible="{Binding HasChannel}"
+                 Background="Transparent"
+                 Padding="16,8"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="state:ChatMessage">
+                    <views:MessageBubble Margin="0,2" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+            <ListBox.Styles>
+                <Style Selector="ListBoxItem">
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="Margin" Value="0" />
+                    <Setter Property="Background" Value="Transparent" />
+                </Style>
+                <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+                    <Setter Property="Background" Value="#04FFFFFF" />
+                </Style>
+            </ListBox.Styles>
+        </ListBox>
+    </Panel>
+</UserControl>

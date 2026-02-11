@@ -1,0 +1,5 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Color x:Key="ThemeBg">#36393F</Color>
+    <Color x:Key="ThemeFg">#DCDDDE</Color>
+</ResourceDictionary>

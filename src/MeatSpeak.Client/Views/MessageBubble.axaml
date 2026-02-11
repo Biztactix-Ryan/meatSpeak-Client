@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:state="using:MeatSpeak.Client.Core.State"
+             xmlns:conv="using:MeatSpeak.Client.Converters"
+             x:Class="MeatSpeak.Client.Views.MessageBubble"
+             x:DataType="state:ChatMessage">
+
+    <UserControl.Resources>
+        <conv:TimestampConverter x:Key="TimestampConverter" />
+        <conv:NickColorConverter x:Key="NickColorConverter" />
+    </UserControl.Resources>
+
+    <Grid ColumnDefinitions="Auto,*" Margin="0,4">
+        <!-- Timestamp -->
+        <TextBlock Grid.Column="0"
+                   Text="{Binding Timestamp, Converter={StaticResource TimestampConverter}}"
+                   Foreground="{StaticResource TextMutedBrush}"
+                   FontSize="11"
+                   Width="44"
+                   VerticalAlignment="Top"
+                   Margin="0,2,8,0" />
+
+        <StackPanel Grid.Column="1">
+            <!-- Nick + Content for normal messages -->
+            <WrapPanel>
+                <TextBlock Text="{Binding SenderNick}"
+                           Foreground="{Binding SenderNick, Converter={StaticResource NickColorConverter}}"
+                           FontWeight="SemiBold"
+                           FontSize="14"
+                           Margin="0,0,8,0" />
+                <TextBlock Text="{Binding Content}"
+                           Foreground="{StaticResource TextPrimaryBrush}"
+                           FontSize="14"
+                           TextWrapping="Wrap" />
+            </WrapPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

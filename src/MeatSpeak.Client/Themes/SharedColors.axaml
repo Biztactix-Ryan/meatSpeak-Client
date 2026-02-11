@@ -1,0 +1,44 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Discord-inspired color palette -->
+    <Color x:Key="ServerListBg">#202225</Color>
+    <Color x:Key="ChannelListBg">#2F3136</Color>
+    <Color x:Key="ChatBg">#36393F</Color>
+    <Color x:Key="MemberListBg">#2F3136</Color>
+    <Color x:Key="InputBg">#40444B</Color>
+    <Color x:Key="VoiceBarBg">#292B2F</Color>
+
+    <Color x:Key="TextPrimary">#DCDDDE</Color>
+    <Color x:Key="TextSecondary">#8E9297</Color>
+    <Color x:Key="TextMuted">#72767D</Color>
+    <Color x:Key="TextLink">#00AFF4</Color>
+
+    <Color x:Key="AccentColor">#5865F2</Color>
+    <Color x:Key="AccentHover">#4752C4</Color>
+    <Color x:Key="OnlineGreen">#3BA55D</Color>
+    <Color x:Key="WarningYellow">#FAA61A</Color>
+    <Color x:Key="DangerRed">#ED4245</Color>
+    <Color x:Key="VoiceGreen">#3BA55D</Color>
+
+    <Color x:Key="ChannelHover">#34373C</Color>
+    <Color x:Key="ChannelActive">#393C43</Color>
+    <Color x:Key="ServerIconBg">#36393F</Color>
+    <Color x:Key="ServerIconHover">#5865F2</Color>
+    <Color x:Key="Separator">#42454A</Color>
+
+    <!-- Brushes -->
+    <SolidColorBrush x:Key="ServerListBgBrush" Color="{StaticResource ServerListBg}" />
+    <SolidColorBrush x:Key="ChannelListBgBrush" Color="{StaticResource ChannelListBg}" />
+    <SolidColorBrush x:Key="ChatBgBrush" Color="{StaticResource ChatBg}" />
+    <SolidColorBrush x:Key="MemberListBgBrush" Color="{StaticResource MemberListBg}" />
+    <SolidColorBrush x:Key="InputBgBrush" Color="{StaticResource InputBg}" />
+    <SolidColorBrush x:Key="VoiceBarBgBrush" Color="{StaticResource VoiceBarBg}" />
+    <SolidColorBrush x:Key="TextPrimaryBrush" Color="{StaticResource TextPrimary}" />
+    <SolidColorBrush x:Key="TextSecondaryBrush" Color="{StaticResource TextSecondary}" />
+    <SolidColorBrush x:Key="TextMutedBrush" Color="{StaticResource TextMuted}" />
+    <SolidColorBrush x:Key="TextLinkBrush" Color="{StaticResource TextLink}" />
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}" />
+    <SolidColorBrush x:Key="SeparatorBrush" Color="{StaticResource Separator}" />
+
+</ResourceDictionary>

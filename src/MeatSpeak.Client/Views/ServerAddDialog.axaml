@@ -1,0 +1,118 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MeatSpeak.Client.ViewModels"
+             x:Class="MeatSpeak.Client.Views.ServerAddDialog"
+             x:DataType="vm:ServerAddViewModel"
+             Width="450">
+
+    <Border Background="{StaticResource ChannelListBgBrush}"
+            CornerRadius="8" Padding="24"
+            BorderBrush="{StaticResource SeparatorBrush}"
+            BorderThickness="1">
+        <StackPanel Spacing="16">
+            <TextBlock Text="Add Server"
+                       FontSize="20" FontWeight="Bold"
+                       Foreground="{StaticResource TextPrimaryBrush}" />
+
+            <!-- Error -->
+            <TextBlock Text="{Binding ErrorMessage}"
+                       Foreground="#ED4245"
+                       IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                       FontSize="13" />
+
+            <!-- Server Name -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="Server Name" FontSize="12" FontWeight="SemiBold"
+                           Foreground="{StaticResource TextSecondaryBrush}" />
+                <TextBox Text="{Binding ServerName}"
+                         Watermark="My Server"
+                         FontSize="14" />
+            </StackPanel>
+
+            <!-- Host + Port -->
+            <Grid ColumnDefinitions="*,112">
+                <StackPanel Spacing="4">
+                    <TextBlock Text="Server Address" FontSize="12" FontWeight="SemiBold"
+                               Foreground="{StaticResource TextSecondaryBrush}" />
+                    <TextBox Text="{Binding Host}"
+                             Watermark="irc.example.com"
+                             FontSize="14" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Spacing="4">
+                    <TextBlock Text="Port" FontSize="12" FontWeight="SemiBold"
+                               Foreground="{StaticResource TextSecondaryBrush}" />
+                    <NumericUpDown Value="{Binding Port}"
+                                   Minimum="1" Maximum="65535"
+                                   FontSize="14" />
+                </StackPanel>
+            </Grid>
+
+            <!-- SSL -->
+            <CheckBox IsChecked="{Binding UseSsl}"
+                      Content="Use SSL/TLS"
+                      Foreground="{StaticResource TextPrimaryBrush}" />
+
+            <!-- Nickname -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="Nickname" FontSize="12" FontWeight="SemiBold"
+                           Foreground="{StaticResource TextSecondaryBrush}" />
+                <TextBox Text="{Binding Nickname}"
+                         Watermark="MyNick"
+                         FontSize="14" />
+            </StackPanel>
+
+            <!-- Password -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="Server Password (optional)" FontSize="12" FontWeight="SemiBold"
+                           Foreground="{StaticResource TextSecondaryBrush}" />
+                <TextBox Text="{Binding Password}"
+                         PasswordChar="*"
+                         FontSize="14" />
+            </StackPanel>
+
+            <!-- SASL -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="SASL Username (optional)" FontSize="12" FontWeight="SemiBold"
+                           Foreground="{StaticResource TextSecondaryBrush}" />
+                <TextBox Text="{Binding SaslUsername}" FontSize="14" />
+            </StackPanel>
+            <StackPanel Spacing="4">
+                <TextBlock Text="SASL Password" FontSize="12" FontWeight="SemiBold"
+                           Foreground="{StaticResource TextSecondaryBrush}" />
+                <TextBox Text="{Binding SaslPassword}" PasswordChar="*" FontSize="14" />
+            </StackPanel>
+
+            <!-- Identity Auth -->
+            <CheckBox IsChecked="{Binding UseIdentityAuth}"
+                      Content="Use Ed25519 Identity Auth (MeatSpeak)"
+                      Foreground="{StaticResource TextPrimaryBrush}" />
+
+            <!-- Auto-join -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="Auto-Join Channels" FontSize="12" FontWeight="SemiBold"
+                           Foreground="{StaticResource TextSecondaryBrush}" />
+                <TextBox Text="{Binding AutoJoinChannels}"
+                         Watermark="#general, #dev"
+                         FontSize="14" />
+            </StackPanel>
+
+            <!-- Auto-connect -->
+            <CheckBox IsChecked="{Binding AutoConnect}"
+                      Content="Auto-connect on startup"
+                      Foreground="{StaticResource TextPrimaryBrush}" />
+
+            <!-- Buttons -->
+            <StackPanel Orientation="Horizontal" Spacing="12"
+                        HorizontalAlignment="Right" Margin="0,8,0,0">
+                <Button Content="Cancel"
+                        Command="{Binding CancelCommand}"
+                        Padding="16,8" />
+                <Button Content="Add Server"
+                        Command="{Binding SaveCommand}"
+                        Background="{StaticResource AccentBrush}"
+                        Foreground="White"
+                        Padding="16,8" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

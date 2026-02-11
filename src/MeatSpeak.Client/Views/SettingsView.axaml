@@ -1,0 +1,78 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MeatSpeak.Client.ViewModels"
+             x:Class="MeatSpeak.Client.Views.SettingsView"
+             x:DataType="vm:SettingsViewModel">
+
+    <Border Background="{StaticResource ChannelListBgBrush}"
+            CornerRadius="8" Padding="32"
+            Margin="48">
+        <StackPanel Spacing="20" MaxWidth="600">
+            <DockPanel>
+                <TextBlock Text="Settings"
+                           FontSize="24" FontWeight="Bold"
+                           Foreground="{StaticResource TextPrimaryBrush}" />
+                <Button Content="X"
+                        Command="{Binding CloseCommand}"
+                        HorizontalAlignment="Right"
+                        Background="Transparent"
+                        Foreground="{StaticResource TextSecondaryBrush}" />
+            </DockPanel>
+
+            <!-- Appearance -->
+            <TextBlock Text="APPEARANCE"
+                       FontSize="12" FontWeight="SemiBold"
+                       Foreground="{StaticResource TextMutedBrush}"
+                       LetterSpacing="1" />
+
+            <ToggleSwitch IsChecked="{Binding IsDarkTheme}"
+                          OnContent="Dark Theme"
+                          OffContent="Light Theme" />
+
+            <CheckBox IsChecked="{Binding ShowTimestamps}"
+                      Content="Show Timestamps"
+                      Foreground="{StaticResource TextPrimaryBrush}" />
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Timestamp Format" FontSize="12"
+                           Foreground="{StaticResource TextSecondaryBrush}" />
+                <TextBox Text="{Binding TimestampFormat}" Width="200"
+                         HorizontalAlignment="Left" />
+            </StackPanel>
+
+            <!-- Notifications -->
+            <TextBlock Text="NOTIFICATIONS"
+                       FontSize="12" FontWeight="SemiBold"
+                       Foreground="{StaticResource TextMutedBrush}"
+                       LetterSpacing="1"
+                       Margin="0,8,0,0" />
+
+            <CheckBox IsChecked="{Binding DesktopNotifications}"
+                      Content="Desktop Notifications"
+                      Foreground="{StaticResource TextPrimaryBrush}" />
+
+            <CheckBox IsChecked="{Binding NotifyOnMention}"
+                      Content="Notify on Mentions"
+                      Foreground="{StaticResource TextPrimaryBrush}" />
+
+            <CheckBox IsChecked="{Binding NotifyOnPm}"
+                      Content="Notify on Private Messages"
+                      Foreground="{StaticResource TextPrimaryBrush}" />
+
+            <!-- Advanced -->
+            <TextBlock Text="ADVANCED"
+                       FontSize="12" FontWeight="SemiBold"
+                       Foreground="{StaticResource TextMutedBrush}"
+                       LetterSpacing="1"
+                       Margin="0,8,0,0" />
+
+            <StackPanel Spacing="4">
+                <TextBlock Text="Max Messages per Channel" FontSize="12"
+                           Foreground="{StaticResource TextSecondaryBrush}" />
+                <NumericUpDown Value="{Binding MaxMessagesPerChannel}"
+                               Minimum="50" Maximum="5000"
+                               Width="200" HorizontalAlignment="Left" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

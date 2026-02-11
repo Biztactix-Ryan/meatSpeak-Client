@@ -1,0 +1,64 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MeatSpeak.Client.ViewModels"
+             xmlns:state="using:MeatSpeak.Client.Core.State"
+             xmlns:conv="using:MeatSpeak.Client.Converters"
+             x:Class="MeatSpeak.Client.Views.MemberListView"
+             x:DataType="vm:MemberListViewModel"
+             Background="{StaticResource MemberListBgBrush}">
+
+    <UserControl.Resources>
+        <conv:NickColorConverter x:Key="NickColorConverter" />
+    </UserControl.Resources>
+
+    <DockPanel>
+        <!-- Header -->
+        <Border DockPanel.Dock="Top" Height="48"
+                BorderBrush="{StaticResource SeparatorBrush}"
+                BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal" Margin="16,0"
+                        VerticalAlignment="Center">
+                <TextBlock Text="Members"
+                           FontSize="13" FontWeight="SemiBold"
+                           Foreground="{StaticResource TextSecondaryBrush}" />
+                <TextBlock Text=" — "
+                           Foreground="{StaticResource TextMutedBrush}" FontSize="13" />
+                <TextBlock Text="{Binding MemberCount}"
+                           FontSize="13"
+                           Foreground="{StaticResource TextMutedBrush}" />
+            </StackPanel>
+        </Border>
+
+        <!-- Member List -->
+        <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding Members}"
+                          Margin="8,8">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="state:UserState">
+                        <Button HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Background="Transparent"
+                                Padding="8,6" CornerRadius="4">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <!-- Status dot -->
+                                <Ellipse Width="32" Height="32"
+                                         Fill="#36393F" />
+
+                                <StackPanel VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding ChannelPrefix}"
+                                                   Foreground="{StaticResource TextMutedBrush}"
+                                                   FontSize="13" />
+                                        <TextBlock Text="{Binding Nick}"
+                                                   Foreground="{Binding Nick, Converter={StaticResource NickColorConverter}}"
+                                                   FontSize="14" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,148 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MeatSpeak.Client.ViewModels"
+             xmlns:state="using:MeatSpeak.Client.Core.State"
+             x:Class="MeatSpeak.Client.Views.ChannelListView"
+             x:DataType="vm:ChannelListViewModel"
+             Background="{StaticResource ChannelListBgBrush}">
+
+    <DockPanel>
+        <!-- Server Name Header -->
+        <Border DockPanel.Dock="Top" Height="48"
+                BorderBrush="{StaticResource SeparatorBrush}"
+                BorderThickness="0,0,0,1">
+            <TextBlock Text="{Binding ServerDisplayName}"
+                       FontSize="16" FontWeight="SemiBold"
+                       Foreground="{StaticResource TextPrimaryBrush}"
+                       VerticalAlignment="Center"
+                       Margin="16,0" />
+        </Border>
+
+        <ScrollViewer>
+            <StackPanel Margin="8,12,8,8" Spacing="2">
+                <!-- Text Channels Header -->
+                <TextBlock Text="TEXT CHANNELS"
+                           FontSize="11" FontWeight="SemiBold"
+                           Foreground="{StaticResource TextMutedBrush}"
+                           Margin="8,0,0,4"
+                           LetterSpacing="1" />
+
+                <!-- Channel List -->
+                <ItemsControl ItemsSource="{Binding Channels}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="state:ChannelState">
+                            <Button HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Left"
+                                    Background="Transparent"
+                                    Padding="8,6"
+                                    CornerRadius="4"
+                                    Command="{Binding $parent[UserControl].((vm:ChannelListViewModel)DataContext).SelectChannelCommand}"
+                                    CommandParameter="{Binding Name}">
+                                <DockPanel>
+                                    <TextBlock Text="#" Foreground="{StaticResource TextMutedBrush}"
+                                               Margin="0,0,6,0" FontSize="18"
+                                               VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding Name}"
+                                               Foreground="{StaticResource TextSecondaryBrush}"
+                                               VerticalAlignment="Center" />
+                                    <!-- Unread indicator -->
+                                    <Border IsVisible="{Binding UnreadCount}"
+                                            Background="{StaticResource AccentBrush}"
+                                            CornerRadius="8" Padding="6,2"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding UnreadCount}"
+                                                   FontSize="11" Foreground="White" />
+                                    </Border>
+                                </DockPanel>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Voice Channels (meatSpeak only) -->
+                <StackPanel IsVisible="{Binding ShowVoiceChannels}" Margin="0,16,0,0">
+                    <TextBlock Text="VOICE CHANNELS"
+                               FontSize="11" FontWeight="SemiBold"
+                               Foreground="{StaticResource TextMutedBrush}"
+                               Margin="8,0,0,4"
+                               LetterSpacing="1" />
+
+                    <ItemsControl ItemsSource="{Binding VoiceChannels}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="state:VoiceChannelState">
+                                <StackPanel Margin="0,2">
+                                    <Button HorizontalAlignment="Stretch"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"
+                                            Padding="8,6" CornerRadius="4">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="V" Foreground="{StaticResource TextMutedBrush}"
+                                                       Margin="0,0,6,0" />
+                                            <TextBlock Text="{Binding ChannelName}"
+                                                       Foreground="{StaticResource TextSecondaryBrush}" />
+                                        </StackPanel>
+                                    </Button>
+
+                                    <!-- Voice Members -->
+                                    <ItemsControl ItemsSource="{Binding Members}" Margin="24,0,0,0">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate x:DataType="state:VoiceMemberState">
+                                                <StackPanel Orientation="Horizontal" Margin="0,2">
+                                                    <Ellipse Width="8" Height="8"
+                                                             Fill="#3BA55D" Margin="0,0,6,0"
+                                                             VerticalAlignment="Center" />
+                                                    <TextBlock Text="{Binding Nick}"
+                                                               Foreground="{StaticResource TextSecondaryBrush}"
+                                                               FontSize="13" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+
+                <!-- Private Messages -->
+                <StackPanel Margin="0,16,0,0">
+                    <TextBlock Text="DIRECT MESSAGES"
+                               FontSize="11" FontWeight="SemiBold"
+                               Foreground="{StaticResource TextMutedBrush}"
+                               Margin="8,0,0,4"
+                               LetterSpacing="1" />
+
+                    <ItemsControl ItemsSource="{Binding PrivateMessages}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="state:PrivateMessageState">
+                                <Button HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        Padding="8,6" CornerRadius="4"
+                                        Command="{Binding $parent[UserControl].((vm:ChannelListViewModel)DataContext).SelectPmCommand}"
+                                        CommandParameter="{Binding Nick}">
+                                    <DockPanel>
+                                        <Ellipse Width="8" Height="8"
+                                                 Fill="#3BA55D" Margin="0,0,8,0"
+                                                 VerticalAlignment="Center" />
+                                        <TextBlock Text="{Binding Nick}"
+                                                   Foreground="{StaticResource TextSecondaryBrush}" />
+                                        <Border IsVisible="{Binding UnreadCount}"
+                                                Background="{StaticResource AccentBrush}"
+                                                CornerRadius="8" Padding="6,2"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding UnreadCount}"
+                                                       FontSize="11" Foreground="White" />
+                                        </Border>
+                                    </DockPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

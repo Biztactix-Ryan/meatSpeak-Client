@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:state="using:MeatSpeak.Client.Core.State"
+             x:Class="MeatSpeak.Client.Controls.ChannelTreeItem"
+             x:DataType="state:ChannelState">
+
+    <Button HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Left"
+            Background="Transparent"
+            Padding="8,6"
+            CornerRadius="4">
+        <DockPanel>
+            <TextBlock Text="#"
+                       Foreground="{StaticResource TextMutedBrush}"
+                       Margin="0,0,6,0" FontSize="18"
+                       VerticalAlignment="Center" />
+            <TextBlock Text="{Binding Name}"
+                       Foreground="{StaticResource TextSecondaryBrush}"
+                       VerticalAlignment="Center" />
+        </DockPanel>
+    </Button>
+</UserControl>

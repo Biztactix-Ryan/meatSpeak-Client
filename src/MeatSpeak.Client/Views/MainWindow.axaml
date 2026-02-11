@@ -1,0 +1,62 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MeatSpeak.Client.ViewModels"
+        xmlns:views="using:MeatSpeak.Client.Views"
+        x:Class="MeatSpeak.Client.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="{Binding Title}"
+        Width="1200" Height="800"
+        MinWidth="800" MinHeight="500"
+        Background="{StaticResource ChatBgBrush}">
+
+    <DockPanel>
+        <!-- Voice Status Bar (bottom) -->
+        <views:VoiceStatusBar DockPanel.Dock="Bottom"
+                              DataContext="{Binding VoiceStatusBar}" />
+
+        <Grid ColumnDefinitions="72,240,*">
+            <!-- Server List (left strip) -->
+            <views:ServerListView Grid.Column="0"
+                                  DataContext="{Binding ServerList}" />
+
+            <!-- Channel List -->
+            <views:ChannelListView Grid.Column="1"
+                                   DataContext="{Binding ChannelList}" />
+
+            <!-- Main Content Area -->
+            <Grid Grid.Column="2" ColumnDefinitions="*,Auto">
+                <DockPanel Grid.Column="0">
+                    <!-- Chat Header -->
+                    <Border DockPanel.Dock="Top" Height="48"
+                            Background="{StaticResource ChatBgBrush}"
+                            BorderBrush="{StaticResource SeparatorBrush}"
+                            BorderThickness="0,0,0,1">
+                        <DockPanel Margin="16,0">
+                            <TextBlock Text="{Binding Chat.ChannelName}"
+                                       FontSize="16" FontWeight="Bold"
+                                       Foreground="{StaticResource TextPrimaryBrush}"
+                                       VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding Chat.Topic}"
+                                       Foreground="{StaticResource TextSecondaryBrush}"
+                                       Margin="16,0,0,0"
+                                       VerticalAlignment="Center"
+                                       TextTrimming="CharacterEllipsis" />
+                        </DockPanel>
+                    </Border>
+
+                    <!-- Message Input (bottom) -->
+                    <views:MessageInputView DockPanel.Dock="Bottom"
+                                            DataContext="{Binding MessageInput}" />
+
+                    <!-- Chat Messages -->
+                    <views:ChatView DataContext="{Binding Chat}" />
+                </DockPanel>
+
+                <!-- Member List (right sidebar) -->
+                <views:MemberListView Grid.Column="1"
+                                      DataContext="{Binding MemberList}"
+                                      Width="240" />
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>
