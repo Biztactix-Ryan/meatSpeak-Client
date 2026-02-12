@@ -9,54 +9,72 @@
         MinWidth="800" MinHeight="500"
         Background="{StaticResource ChatBgBrush}">
 
-    <DockPanel>
-        <!-- Voice Status Bar (bottom) -->
-        <views:VoiceStatusBar DockPanel.Dock="Bottom"
-                              DataContext="{Binding VoiceStatusBar}" />
+    <Panel>
+        <DockPanel>
+            <!-- Voice Status Bar (bottom) -->
+            <views:VoiceStatusBar DockPanel.Dock="Bottom"
+                                  DataContext="{Binding VoiceStatusBar}" />
 
-        <Grid ColumnDefinitions="72,240,*">
-            <!-- Server List (left strip) -->
-            <views:ServerListView Grid.Column="0"
-                                  DataContext="{Binding ServerList}" />
+            <Grid ColumnDefinitions="72,240,*">
+                <!-- Server List (left strip) -->
+                <views:ServerListView Grid.Column="0"
+                                      DataContext="{Binding ServerList}" />
 
-            <!-- Channel List -->
-            <views:ChannelListView Grid.Column="1"
-                                   DataContext="{Binding ChannelList}" />
+                <!-- Channel List -->
+                <views:ChannelListView Grid.Column="1"
+                                       DataContext="{Binding ChannelList}" />
 
-            <!-- Main Content Area -->
-            <Grid Grid.Column="2" ColumnDefinitions="*,Auto">
-                <DockPanel Grid.Column="0">
-                    <!-- Chat Header -->
-                    <Border DockPanel.Dock="Top" Height="48"
-                            Background="{StaticResource ChatBgBrush}"
-                            BorderBrush="{StaticResource SeparatorBrush}"
-                            BorderThickness="0,0,0,1">
-                        <DockPanel Margin="16,0">
-                            <TextBlock Text="{Binding Chat.ChannelName}"
-                                       FontSize="16" FontWeight="Bold"
-                                       Foreground="{StaticResource TextPrimaryBrush}"
-                                       VerticalAlignment="Center" />
-                            <TextBlock Text="{Binding Chat.Topic}"
-                                       Foreground="{StaticResource TextSecondaryBrush}"
-                                       Margin="16,0,0,0"
-                                       VerticalAlignment="Center"
-                                       TextTrimming="CharacterEllipsis" />
-                        </DockPanel>
-                    </Border>
+                <!-- Main Content Area -->
+                <Grid Grid.Column="2" ColumnDefinitions="*,Auto">
+                    <DockPanel Grid.Column="0">
+                        <!-- Chat Header -->
+                        <Border DockPanel.Dock="Top" Height="48"
+                                Background="{StaticResource ChatBgBrush}"
+                                BorderBrush="{StaticResource SeparatorBrush}"
+                                BorderThickness="0,0,0,1">
+                            <DockPanel Margin="16,0">
+                                <TextBlock Text="{Binding Chat.ChannelName}"
+                                           FontSize="16" FontWeight="Bold"
+                                           Foreground="{StaticResource TextPrimaryBrush}"
+                                           VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding Chat.Topic}"
+                                           Foreground="{StaticResource TextSecondaryBrush}"
+                                           Margin="16,0,0,0"
+                                           VerticalAlignment="Center"
+                                           TextTrimming="CharacterEllipsis" />
+                            </DockPanel>
+                        </Border>
 
-                    <!-- Message Input (bottom) -->
-                    <views:MessageInputView DockPanel.Dock="Bottom"
-                                            DataContext="{Binding MessageInput}" />
+                        <!-- Message Input (bottom) -->
+                        <views:MessageInputView DockPanel.Dock="Bottom"
+                                                DataContext="{Binding MessageInput}" />
 
-                    <!-- Chat Messages -->
-                    <views:ChatView DataContext="{Binding Chat}" />
-                </DockPanel>
+                        <!-- Chat Messages -->
+                        <views:ChatView DataContext="{Binding Chat}" />
+                    </DockPanel>
 
-                <!-- Member List (right sidebar) -->
-                <views:MemberListView Grid.Column="1"
-                                      DataContext="{Binding MemberList}"
-                                      Width="240" />
+                    <!-- Member List (right sidebar) -->
+                    <views:MemberListView Grid.Column="1"
+                                          DataContext="{Binding MemberList}"
+                                          Width="240" />
+                </Grid>
             </Grid>
-        </Grid>
-    </DockPanel>
+        </DockPanel>
+
+        <!-- Server Add Dialog overlay -->
+        <Border IsVisible="{Binding ServerList.IsAddServerOpen}"
+                Background="#80000000">
+            <views:ServerAddDialog DataContext="{Binding ServerAddDialog}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+        </Border>
+
+        <!-- Settings overlay -->
+        <Border IsVisible="{Binding IsSettingsOpen}"
+                Background="#80000000">
+            <views:SettingsView DataContext="{Binding Settings}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+        </Border>
+    </Panel>
 </Window>

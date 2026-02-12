@@ -32,7 +32,8 @@
                     CornerRadius="24"
                     Background="#36393F"
                     HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center">
+                    VerticalContentAlignment="Center"
+                    Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).ToggleSettingsCommand}">
                 <TextBlock Text="S" FontSize="16"
                            Foreground="{StaticResource TextSecondaryBrush}" />
             </Button>
