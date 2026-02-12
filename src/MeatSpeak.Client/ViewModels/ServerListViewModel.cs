@@ -47,6 +47,17 @@ public partial class ServerListViewModel : ViewModelBase
     [RelayCommand]
     private async Task AddServerAsync(ServerProfile profile)
     {
+        // Prevent duplicate connections to the same server
+        var existing = _connectionManager.Connections.FirstOrDefault(c =>
+            c.ServerState.Profile.Host.Equals(profile.Host, StringComparison.OrdinalIgnoreCase) &&
+            c.ServerState.Profile.Port == profile.Port);
+        if (existing is not null)
+        {
+            _connectionManager.ClientState.ActiveServer = existing.ServerState;
+            IsAddServerOpen = false;
+            return;
+        }
+
         _db.SaveServerProfile(profile);
         await _connectionManager.AddAndConnectAsync(profile);
         IsAddServerOpen = false;

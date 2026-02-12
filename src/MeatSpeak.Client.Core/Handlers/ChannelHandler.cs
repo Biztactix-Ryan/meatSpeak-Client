@@ -77,23 +77,26 @@ public sealed class ChannelHandler : IMessageHandler
 
         if (nick.Equals(state.CurrentNick, StringComparison.OrdinalIgnoreCase))
         {
-            channel.IsJoined = false;
-            channel.Members.Clear();
+            state.RemoveChannel(channelName);
+
+            // Switch to another channel if we were viewing this one
+            if (channelName.Equals(state.ActiveChannelName, StringComparison.OrdinalIgnoreCase))
+                state.ActiveChannelName = state.Channels.FirstOrDefault()?.Name;
         }
         else
         {
             channel.RemoveMember(nick);
-        }
 
-        channel.AddMessage(new State.ChatMessage
-        {
-            SenderNick = nick,
-            SenderPrefix = message.Prefix,
-            Content = string.IsNullOrEmpty(reason)
-                ? $"{nick} has left {channelName}"
-                : $"{nick} has left {channelName} ({reason})",
-            Type = State.ChatMessageType.Part,
-        });
+            channel.AddMessage(new State.ChatMessage
+            {
+                SenderNick = nick,
+                SenderPrefix = message.Prefix,
+                Content = string.IsNullOrEmpty(reason)
+                    ? $"{nick} has left {channelName}"
+                    : $"{nick} has left {channelName} ({reason})",
+                Type = State.ChatMessageType.Part,
+            });
+        }
     }
 
     private static void HandleKick(Connection.ServerConnection connection, IrcMessage message)
@@ -111,22 +114,24 @@ public sealed class ChannelHandler : IMessageHandler
 
         if (target.Equals(state.CurrentNick, StringComparison.OrdinalIgnoreCase))
         {
-            channel.IsJoined = false;
-            channel.Members.Clear();
+            state.RemoveChannel(channelName);
+
+            if (channelName.Equals(state.ActiveChannelName, StringComparison.OrdinalIgnoreCase))
+                state.ActiveChannelName = state.Channels.FirstOrDefault()?.Name;
         }
         else
         {
             channel.RemoveMember(target);
-        }
 
-        channel.AddMessage(new State.ChatMessage
-        {
-            SenderNick = kicker ?? "server",
-            Content = string.IsNullOrEmpty(reason)
-                ? $"{target} was kicked by {kicker}"
-                : $"{target} was kicked by {kicker} ({reason})",
-            Type = State.ChatMessageType.Kick,
-        });
+            channel.AddMessage(new State.ChatMessage
+            {
+                SenderNick = kicker ?? "server",
+                Content = string.IsNullOrEmpty(reason)
+                    ? $"{target} was kicked by {kicker}"
+                    : $"{target} was kicked by {kicker} ({reason})",
+                Type = State.ChatMessageType.Kick,
+            });
+        }
     }
 
     private static void HandleTopic(Connection.ServerConnection connection, IrcMessage message)

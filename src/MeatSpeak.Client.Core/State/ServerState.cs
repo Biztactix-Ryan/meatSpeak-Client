@@ -23,6 +23,7 @@ public partial class ServerState : ObservableObject
     public ObservableCollection<ChannelState> Channels { get; } = [];
     public ObservableCollection<PrivateMessageState> PrivateMessages { get; } = [];
     public ObservableCollection<VoiceChannelState> VoiceChannels { get; } = [];
+    public ObservableCollection<ListedChannel> AvailableChannels { get; } = [];
     public HashSet<string> EnabledCapabilities { get; } = new(StringComparer.OrdinalIgnoreCase);
     public List<string> MotdLines { get; } = [];
 

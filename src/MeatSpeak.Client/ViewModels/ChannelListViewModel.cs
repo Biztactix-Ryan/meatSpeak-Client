@@ -29,6 +29,9 @@ public partial class ChannelListViewModel : ViewModelBase
     public ObservableCollection<VoiceChannelState>? VoiceChannels =>
         ClientState.ActiveServer?.VoiceChannels;
 
+    public ObservableCollection<ListedChannel>? AvailableChannels =>
+        ClientState.ActiveServer?.AvailableChannels;
+
     public bool ShowVoiceChannels =>
         ClientState.ActiveServer?.HasVoiceCapability ?? false;
 
@@ -81,11 +84,23 @@ public partial class ChannelListViewModel : ViewModelBase
             await connection.PartChannelAsync(channelName);
     }
 
+    [RelayCommand]
+    private async Task JoinAvailableChannelAsync(string channelName)
+    {
+        var server = ClientState.ActiveServer;
+        if (server is null) return;
+
+        var connection = _connectionManager.FindConnection(server.ConnectionId);
+        if (connection is not null)
+            await connection.JoinChannelAsync(channelName);
+    }
+
     public void RefreshForServer()
     {
         OnPropertyChanged(nameof(Channels));
         OnPropertyChanged(nameof(PrivateMessages));
         OnPropertyChanged(nameof(VoiceChannels));
+        OnPropertyChanged(nameof(AvailableChannels));
         OnPropertyChanged(nameof(ShowVoiceChannels));
         ServerDisplayName = ClientState.ActiveServer?.Profile.Name
                            ?? ClientState.ActiveServer?.ServerName;

@@ -19,6 +19,8 @@ public sealed class NumericHandler : IMessageHandler
         Numerics.Format(Numerics.RPL_TOPICWHOTIME),
         Numerics.Format(Numerics.RPL_NOTOPIC),
         Numerics.Format(Numerics.RPL_CHANNELMODEIS),
+        Numerics.Format(Numerics.RPL_LIST),
+        Numerics.Format(Numerics.RPL_LISTEND),
         Numerics.Format(Numerics.RPL_NAMREPLY),
         Numerics.Format(Numerics.RPL_ENDOFNAMES),
         Numerics.Format(Numerics.RPL_AWAY),
@@ -71,6 +73,13 @@ public sealed class NumericHandler : IMessageHandler
 
             case Numerics.RPL_CHANNELMODEIS:
                 HandleChannelModes(state, message);
+                break;
+
+            case Numerics.RPL_LIST:
+                HandleList(state, message);
+                break;
+
+            case Numerics.RPL_LISTEND:
                 break;
 
             case Numerics.RPL_NAMREPLY:
@@ -184,6 +193,18 @@ public sealed class NumericHandler : IMessageHandler
                 });
             }
         }
+    }
+
+    private static void HandleList(State.ServerState state, IrcMessage message)
+    {
+        // :server 322 nick #channel usercount :topic
+        var channelName = message.GetParam(1);
+        if (channelName is null) return;
+
+        int.TryParse(message.GetParam(2), out var userCount);
+        var topic = message.Trailing ?? string.Empty;
+
+        state.AvailableChannels.Add(new State.ListedChannel(channelName, userCount, topic));
     }
 
     private static void HandleNickInUse(State.ServerState state, IrcMessage message)

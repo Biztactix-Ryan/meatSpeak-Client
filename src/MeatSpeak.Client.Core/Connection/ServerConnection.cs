@@ -139,6 +139,8 @@ public sealed class ServerConnection : IDisposable
                 {
                     Connected?.Invoke(this);
                     await AutoJoinAsync();
+                    ServerState.AvailableChannels.Clear();
+                    await SendAsync("LIST");
                 }
             }
             catch (Exception ex)

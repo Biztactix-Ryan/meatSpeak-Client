@@ -48,7 +48,7 @@ public class ChannelHandlerTests
     }
 
     [Fact]
-    public async Task HandlePart_Self_ClearsChannel()
+    public async Task HandlePart_Self_RemovesChannel()
     {
         var handler = new ChannelHandler();
         var connection = CreateConnection();
@@ -59,8 +59,25 @@ public class ChannelHandlerTests
         var message = new IrcMessage(null, "testnick!user@host", "PART", ["#test"]);
         await handler.HandleAsync(connection, message);
 
-        Assert.False(channel.IsJoined);
-        Assert.Empty(channel.Members);
+        Assert.Null(connection.ServerState.FindChannel("#test"));
+
+        connection.Dispose();
+    }
+
+    [Fact]
+    public async Task HandlePart_Self_SwitchesActiveChannel()
+    {
+        var handler = new ChannelHandler();
+        var connection = CreateConnection();
+        connection.ServerState.GetOrCreateChannel("#stay");
+        var channel = connection.ServerState.GetOrCreateChannel("#leave");
+        channel.IsJoined = true;
+        connection.ServerState.ActiveChannelName = "#leave";
+
+        var message = new IrcMessage(null, "testnick!user@host", "PART", ["#leave"]);
+        await handler.HandleAsync(connection, message);
+
+        Assert.Equal("#stay", connection.ServerState.ActiveChannelName);
 
         connection.Dispose();
     }

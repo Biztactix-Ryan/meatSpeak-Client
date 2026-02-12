@@ -126,4 +126,40 @@ public class NumericHandlerTests
 
         connection.Dispose();
     }
+
+    [Fact]
+    public async Task HandleList_AddsAvailableChannel()
+    {
+        var handler = new NumericHandler();
+        var connection = CreateConnection();
+
+        var message = new IrcMessage(null, "server", "322",
+            ["testnick", "#general", "42", "Welcome to general chat"]);
+
+        await handler.HandleAsync(connection, message);
+
+        Assert.Single(connection.ServerState.AvailableChannels);
+        var listed = connection.ServerState.AvailableChannels[0];
+        Assert.Equal("#general", listed.Name);
+        Assert.Equal(42, listed.UserCount);
+        Assert.Equal("Welcome to general chat", listed.Topic);
+
+        connection.Dispose();
+    }
+
+    [Fact]
+    public async Task HandleListEnd_IsNoOp()
+    {
+        var handler = new NumericHandler();
+        var connection = CreateConnection();
+
+        var message = new IrcMessage(null, "server", "323",
+            ["testnick", "End of /LIST"]);
+
+        await handler.HandleAsync(connection, message);
+
+        Assert.Empty(connection.ServerState.AvailableChannels);
+
+        connection.Dispose();
+    }
 }

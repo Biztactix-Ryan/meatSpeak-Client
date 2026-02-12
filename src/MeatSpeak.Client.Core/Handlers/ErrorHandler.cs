@@ -54,7 +54,7 @@ public sealed class ErrorHandler : IMessageHandler
         {
             // Generic error — show in active channel or server buffer
             state.ErrorMessage = errorText;
-            var serverBuf = state.GetOrCreateChannel("*");
+            var serverBuf = state.GetOrCreateChannel("Server");
             serverBuf.AddMessage(new State.ChatMessage
             {
                 SenderNick = "server",

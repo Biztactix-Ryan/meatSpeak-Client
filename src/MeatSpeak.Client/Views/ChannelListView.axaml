@@ -60,6 +60,45 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
+                <!-- Available Channels (from LIST) -->
+                <StackPanel Margin="0,16,0,0"
+                            IsVisible="{Binding AvailableChannels.Count}">
+                    <TextBlock Text="AVAILABLE CHANNELS"
+                               FontSize="11" FontWeight="SemiBold"
+                               Foreground="{StaticResource TextMutedBrush}"
+                               Margin="8,0,0,4"
+                               LetterSpacing="1" />
+
+                    <ItemsControl ItemsSource="{Binding AvailableChannels}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="state:ListedChannel" x:CompileBindings="False">
+                                <Button HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        Padding="8,6"
+                                        CornerRadius="4"
+                                        Command="{Binding $parent[UserControl].DataContext.JoinAvailableChannelCommand}"
+                                        CommandParameter="{Binding Name}">
+                                    <DockPanel>
+                                        <TextBlock Text="#" Foreground="{StaticResource TextMutedBrush}"
+                                                   Margin="0,0,6,0" FontSize="18"
+                                                   VerticalAlignment="Center"
+                                                   Opacity="0.5" />
+                                        <TextBlock Text="{Binding Name}"
+                                                   Foreground="{StaticResource TextMutedBrush}"
+                                                   VerticalAlignment="Center" />
+                                        <TextBlock Text="{Binding UserCount, StringFormat='({0})'}"
+                                                   Foreground="{StaticResource TextMutedBrush}"
+                                                   FontSize="11" Margin="6,0,0,0"
+                                                   VerticalAlignment="Center"
+                                                   Opacity="0.6" />
+                                    </DockPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+
                 <!-- Voice Channels (meatSpeak only) -->
                 <StackPanel IsVisible="{Binding ShowVoiceChannels}" Margin="0,16,0,0">
                     <TextBlock Text="VOICE CHANNELS"
