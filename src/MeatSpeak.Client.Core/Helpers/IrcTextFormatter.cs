@@ -2,6 +2,19 @@ using System.Text;
 
 namespace MeatSpeak.Client.Core.Helpers;
 
+public sealed record FormattedSegment
+{
+    public string Text { get; init; } = string.Empty;
+    public bool IsBold { get; init; }
+    public bool IsItalic { get; init; }
+    public bool IsUnderline { get; init; }
+    public bool IsStrikethrough { get; init; }
+    public bool IsMonospace { get; init; }
+    public int? ForegroundColor { get; init; }
+    public int? BackgroundColor { get; init; }
+    public bool IsUrl { get; init; }
+}
+
 public static class IrcTextFormatter
 {
     // mIRC color codes
@@ -13,6 +26,119 @@ public static class IrcTextFormatter
     private const char Monospace = '\x11';
     private const char Reset = '\x0F';
     private const char Reverse = '\x16';
+
+    public static List<FormattedSegment> ParseFormatted(string input)
+    {
+        var segments = new List<FormattedSegment>();
+        var textBuf = new StringBuilder();
+
+        bool bold = false, italic = false, underline = false, strikethrough = false, monospace = false;
+        int? fg = null, bg = null;
+
+        void Flush()
+        {
+            if (textBuf.Length == 0) return;
+            segments.Add(new FormattedSegment
+            {
+                Text = textBuf.ToString(),
+                IsBold = bold,
+                IsItalic = italic,
+                IsUnderline = underline,
+                IsStrikethrough = strikethrough,
+                IsMonospace = monospace,
+                ForegroundColor = fg,
+                BackgroundColor = bg,
+            });
+            textBuf.Clear();
+        }
+
+        int i = 0;
+        while (i < input.Length)
+        {
+            var c = input[i];
+            switch (c)
+            {
+                case Bold:
+                    Flush();
+                    bold = !bold;
+                    i++;
+                    break;
+                case Italic:
+                    Flush();
+                    italic = !italic;
+                    i++;
+                    break;
+                case Underline:
+                    Flush();
+                    underline = !underline;
+                    i++;
+                    break;
+                case Strikethrough:
+                    Flush();
+                    strikethrough = !strikethrough;
+                    i++;
+                    break;
+                case Monospace:
+                    Flush();
+                    monospace = !monospace;
+                    i++;
+                    break;
+                case Reverse:
+                    Flush();
+                    (fg, bg) = (bg, fg);
+                    i++;
+                    break;
+                case Reset:
+                    Flush();
+                    bold = italic = underline = strikethrough = monospace = false;
+                    fg = bg = null;
+                    i++;
+                    break;
+                case Color:
+                    Flush();
+                    i++;
+                    if (i < input.Length && char.IsDigit(input[i]))
+                    {
+                        int fgVal = input[i] - '0';
+                        i++;
+                        if (i < input.Length && char.IsDigit(input[i]))
+                        {
+                            fgVal = fgVal * 10 + (input[i] - '0');
+                            i++;
+                        }
+                        fg = fgVal % 16;
+
+                        if (i < input.Length && input[i] == ',')
+                        {
+                            i++;
+                            if (i < input.Length && char.IsDigit(input[i]))
+                            {
+                                int bgVal = input[i] - '0';
+                                i++;
+                                if (i < input.Length && char.IsDigit(input[i]))
+                                {
+                                    bgVal = bgVal * 10 + (input[i] - '0');
+                                    i++;
+                                }
+                                bg = bgVal % 16;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        fg = bg = null;
+                    }
+                    break;
+                default:
+                    textBuf.Append(c);
+                    i++;
+                    break;
+            }
+        }
+
+        Flush();
+        return segments;
+    }
 
     public static string StripFormatting(string input)
     {
