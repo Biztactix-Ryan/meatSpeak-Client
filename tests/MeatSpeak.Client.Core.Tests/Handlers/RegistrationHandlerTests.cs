@@ -1,6 +1,7 @@
 using MeatSpeak.Client.Core.Connection;
 using MeatSpeak.Client.Core.Data;
 using MeatSpeak.Client.Core.Handlers;
+using MeatSpeak.Client.Core.State;
 using MeatSpeak.Protocol;
 
 namespace MeatSpeak.Client.Core.Tests.Handlers;
@@ -40,6 +41,40 @@ public class RegistrationHandlerTests
         await handler.HandleAsync(connection, message);
 
         Assert.Equal("servernick", connection.ServerState.CurrentNick);
+
+        connection.Dispose();
+    }
+
+    [Fact]
+    public async Task HandleWelcome_AddsMessageToServerPm()
+    {
+        var handler = new RegistrationHandler();
+        var connection = CreateConnection();
+        var message = new IrcMessage(null, "irc.test.com", "001", ["testnick", "Welcome to the test server"]);
+
+        await handler.HandleAsync(connection, message);
+
+        var serverPm = connection.ServerState.PrivateMessages.FirstOrDefault(p => p.Nick == "Server");
+        Assert.NotNull(serverPm);
+        Assert.Single(serverPm.Messages);
+        Assert.Equal("Welcome to the test server", serverPm.Messages[0].Content);
+        Assert.Equal(ChatMessageType.System, serverPm.Messages[0].Type);
+
+        connection.Dispose();
+    }
+
+    [Fact]
+    public async Task HandleWelcome_NullTrailing_DoesNotCreatePm()
+    {
+        var handler = new RegistrationHandler();
+        var connection = CreateConnection();
+        // No trailing — welcomeMsg is null, should not add PM message
+        var message = new IrcMessage(null, "irc.test.com", "001", []);
+
+        await handler.HandleAsync(connection, message);
+
+        var serverPm = connection.ServerState.PrivateMessages.FirstOrDefault(p => p.Nick == "Server");
+        Assert.Null(serverPm);
 
         connection.Dispose();
     }

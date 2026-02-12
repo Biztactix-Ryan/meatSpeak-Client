@@ -29,7 +29,7 @@ public sealed class RegistrationHandler : IMessageHandler
                 var welcomeMsg = message.Trailing;
                 if (welcomeMsg is not null)
                 {
-                    connection.ServerState.GetOrCreateChannel("*").AddMessage(new State.ChatMessage
+                    connection.ServerState.GetOrCreatePm("Server").AddMessage(new State.ChatMessage
                     {
                         SenderNick = message.Prefix ?? "server",
                         Content = welcomeMsg,
