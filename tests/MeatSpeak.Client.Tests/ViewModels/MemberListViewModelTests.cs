@@ -1,4 +1,5 @@
 using MeatSpeak.Client.Core.Connection;
+using MeatSpeak.Client.Core.Data;
 using MeatSpeak.Client.Core.Handlers;
 using MeatSpeak.Client.Core.State;
 using MeatSpeak.Client.ViewModels;
@@ -9,7 +10,8 @@ public class MemberListViewModelTests
 {
     private static (MemberListViewModel vm, ConnectionManager cm) CreateVm()
     {
-        var cm = new ConnectionManager(() => new MessageDispatcher());
+        var db = new ClientDatabase(":memory:");
+        var cm = new ConnectionManager(() => new MessageDispatcher(), db);
         var vm = new MemberListViewModel(cm);
         return (vm, cm);
     }

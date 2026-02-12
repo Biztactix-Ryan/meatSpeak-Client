@@ -72,7 +72,7 @@ public partial class App : Application
         // Connection
         services.AddSingleton<ClientState>();
         services.AddSingleton<ConnectionManager>(sp =>
-            new ConnectionManager(CreateDispatcher));
+            new ConnectionManager(CreateDispatcher, sp.GetRequiredService<ClientDatabase>()));
 
         // Services
         services.AddSingleton<IThemeService, ThemeService>();

@@ -27,6 +27,10 @@ public partial class ServerState : ObservableObject
     public HashSet<string> EnabledCapabilities { get; } = new(StringComparer.OrdinalIgnoreCase);
     public List<string> MotdLines { get; } = [];
 
+    public event Action? AutoJoinChanged;
+
+    public void OnAutoJoinChanged() => AutoJoinChanged?.Invoke();
+
     public ServerState(string connectionId, ServerProfile profile)
     {
         ConnectionId = connectionId;

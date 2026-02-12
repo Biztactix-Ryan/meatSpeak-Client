@@ -45,6 +45,13 @@ public sealed class ChannelHandler : IMessageHandler
         if (nick.Equals(state.CurrentNick, StringComparison.OrdinalIgnoreCase))
         {
             channel.IsJoined = true;
+
+            var autoJoin = state.Profile.AutoJoinChannels;
+            if (!autoJoin.Contains(channelName, StringComparer.OrdinalIgnoreCase))
+            {
+                autoJoin.Add(channelName);
+                state.OnAutoJoinChanged();
+            }
         }
         else
         {
@@ -77,6 +84,14 @@ public sealed class ChannelHandler : IMessageHandler
 
         if (nick.Equals(state.CurrentNick, StringComparison.OrdinalIgnoreCase))
         {
+            var autoJoin = state.Profile.AutoJoinChannels;
+            var idx = autoJoin.FindIndex(c => c.Equals(channelName, StringComparison.OrdinalIgnoreCase));
+            if (idx >= 0)
+            {
+                autoJoin.RemoveAt(idx);
+                state.OnAutoJoinChanged();
+            }
+
             state.RemoveChannel(channelName);
 
             // Switch to another channel if we were viewing this one

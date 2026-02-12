@@ -8,19 +8,22 @@ namespace MeatSpeak.Client.Core.Connection;
 public sealed class ConnectionManager : IDisposable
 {
     private readonly Func<MessageDispatcher> _dispatcherFactory;
+    private readonly ClientDatabase _db;
 
     public ObservableCollection<ServerConnection> Connections { get; } = [];
     public ClientState ClientState { get; } = new();
 
-    public ConnectionManager(Func<MessageDispatcher> dispatcherFactory)
+    public ConnectionManager(Func<MessageDispatcher> dispatcherFactory, ClientDatabase db)
     {
         _dispatcherFactory = dispatcherFactory;
+        _db = db;
     }
 
     public async Task<ServerConnection> AddAndConnectAsync(ServerProfile profile, CancellationToken ct = default)
     {
         var dispatcher = _dispatcherFactory();
         var connection = new ServerConnection(profile, dispatcher);
+        connection.ServerState.AutoJoinChanged += () => _db.SaveServerProfile(connection.ServerState.Profile);
         Connections.Add(connection);
         ClientState.AddServer(connection.ServerState);
 
