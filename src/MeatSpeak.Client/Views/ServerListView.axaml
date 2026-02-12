@@ -33,7 +33,7 @@
                     Background="#36393F"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
-                    Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).ToggleSettingsCommand}">
+                    Command="{Binding OpenSettingsCommand}">
                 <TextBlock Text="S" FontSize="16"
                            Foreground="{StaticResource TextSecondaryBrush}" />
             </Button>

@@ -66,6 +66,12 @@ public partial class MainWindowViewModel : ViewModelBase
 
     private void OnServerListPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
+        if (e.PropertyName == nameof(ServerListViewModel.IsSettingsOpen) && ServerList.IsSettingsOpen)
+        {
+            IsSettingsOpen = true;
+            ServerList.IsSettingsOpen = false;
+        }
+
         if (e.PropertyName == nameof(ServerListViewModel.IsAddServerOpen) && ServerList.IsAddServerOpen)
         {
             var dialog = new ServerAddViewModel();

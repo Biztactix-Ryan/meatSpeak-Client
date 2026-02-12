@@ -14,6 +14,7 @@ public partial class ServerListViewModel : ViewModelBase
 
     [ObservableProperty] private ServerState? _selectedServer;
     [ObservableProperty] private bool _isAddServerOpen;
+    [ObservableProperty] private bool _isSettingsOpen;
 
     public ClientState ClientState => _connectionManager.ClientState;
     public ObservableCollection<ServerConnection> Connections => _connectionManager.Connections;
@@ -35,6 +36,12 @@ public partial class ServerListViewModel : ViewModelBase
     private void OpenAddServer()
     {
         IsAddServerOpen = true;
+    }
+
+    [RelayCommand]
+    private void OpenSettings()
+    {
+        IsSettingsOpen = true;
     }
 
     [RelayCommand]
