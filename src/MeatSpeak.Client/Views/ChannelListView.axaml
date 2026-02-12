@@ -30,13 +30,13 @@
                 <!-- Channel List -->
                 <ItemsControl ItemsSource="{Binding Channels}">
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="state:ChannelState">
+                        <DataTemplate x:DataType="state:ChannelState" x:CompileBindings="False">
                             <Button HorizontalAlignment="Stretch"
                                     HorizontalContentAlignment="Left"
                                     Background="Transparent"
                                     Padding="8,6"
                                     CornerRadius="4"
-                                    Command="{Binding $parent[UserControl].((vm:ChannelListViewModel)DataContext).SelectChannelCommand}"
+                                    Command="{Binding $parent[UserControl].DataContext.SelectChannelCommand}"
                                     CommandParameter="{Binding Name}">
                                 <DockPanel>
                                     <TextBlock Text="#" Foreground="{StaticResource TextMutedBrush}"
@@ -115,12 +115,12 @@
 
                     <ItemsControl ItemsSource="{Binding PrivateMessages}">
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate x:DataType="state:PrivateMessageState">
+                            <DataTemplate x:DataType="state:PrivateMessageState" x:CompileBindings="False">
                                 <Button HorizontalAlignment="Stretch"
                                         HorizontalContentAlignment="Left"
                                         Background="Transparent"
                                         Padding="8,6" CornerRadius="4"
-                                        Command="{Binding $parent[UserControl].((vm:ChannelListViewModel)DataContext).SelectPmCommand}"
+                                        Command="{Binding $parent[UserControl].DataContext.SelectPmCommand}"
                                         CommandParameter="{Binding Nick}">
                                     <DockPanel>
                                         <Ellipse Width="8" Height="8"

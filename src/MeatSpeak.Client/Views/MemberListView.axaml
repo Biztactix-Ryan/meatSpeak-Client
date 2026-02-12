@@ -42,7 +42,7 @@
                     </TextBlock>
                     <ItemsControl ItemsSource="{Binding Operators}">
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate x:DataType="state:UserState">
+                            <DataTemplate x:DataType="state:UserState" x:CompileBindings="False">
                                 <Button HorizontalAlignment="Stretch"
                                         HorizontalContentAlignment="Left"
                                         Background="Transparent"
@@ -50,23 +50,23 @@
                                     <Button.ContextMenu>
                                         <ContextMenu>
                                             <MenuItem Header="Message"
-                                                      Command="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).MessageUserCommand}"
+                                                      Command="{Binding $parent[UserControl].DataContext.MessageUserCommand}"
                                                       CommandParameter="{Binding Nick}" />
                                             <MenuItem Header="Whois"
-                                                      Command="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).WhoisCommand}"
+                                                      Command="{Binding $parent[UserControl].DataContext.WhoisCommand}"
                                                       CommandParameter="{Binding Nick}" />
-                                            <Separator IsVisible="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).IsCurrentUserOp}" />
+                                            <Separator IsVisible="{Binding $parent[UserControl].DataContext.IsCurrentUserOp}" />
                                             <MenuItem Header="Deop"
-                                                      IsVisible="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).IsCurrentUserOp}"
-                                                      Command="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).DeopCommand}"
+                                                      IsVisible="{Binding $parent[UserControl].DataContext.IsCurrentUserOp}"
+                                                      Command="{Binding $parent[UserControl].DataContext.DeopCommand}"
                                                       CommandParameter="{Binding Nick}" />
                                             <MenuItem Header="Kick"
-                                                      IsVisible="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).IsCurrentUserOp}"
-                                                      Command="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).KickCommand}"
+                                                      IsVisible="{Binding $parent[UserControl].DataContext.IsCurrentUserOp}"
+                                                      Command="{Binding $parent[UserControl].DataContext.KickCommand}"
                                                       CommandParameter="{Binding Nick}" />
                                             <MenuItem Header="Ban"
-                                                      IsVisible="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).IsCurrentUserOp}"
-                                                      Command="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).BanCommand}"
+                                                      IsVisible="{Binding $parent[UserControl].DataContext.IsCurrentUserOp}"
+                                                      Command="{Binding $parent[UserControl].DataContext.BanCommand}"
                                                       CommandParameter="{Binding Nick}" />
                                         </ContextMenu>
                                     </Button.ContextMenu>
@@ -97,7 +97,7 @@
                     </TextBlock>
                     <ItemsControl ItemsSource="{Binding Voiced}">
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate x:DataType="state:UserState">
+                            <DataTemplate x:DataType="state:UserState" x:CompileBindings="False">
                                 <Button HorizontalAlignment="Stretch"
                                         HorizontalContentAlignment="Left"
                                         Background="Transparent"
@@ -105,27 +105,27 @@
                                     <Button.ContextMenu>
                                         <ContextMenu>
                                             <MenuItem Header="Message"
-                                                      Command="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).MessageUserCommand}"
+                                                      Command="{Binding $parent[UserControl].DataContext.MessageUserCommand}"
                                                       CommandParameter="{Binding Nick}" />
                                             <MenuItem Header="Whois"
-                                                      Command="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).WhoisCommand}"
+                                                      Command="{Binding $parent[UserControl].DataContext.WhoisCommand}"
                                                       CommandParameter="{Binding Nick}" />
-                                            <Separator IsVisible="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).IsCurrentUserOp}" />
+                                            <Separator IsVisible="{Binding $parent[UserControl].DataContext.IsCurrentUserOp}" />
                                             <MenuItem Header="Op"
-                                                      IsVisible="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).IsCurrentUserOp}"
-                                                      Command="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).OpCommand}"
+                                                      IsVisible="{Binding $parent[UserControl].DataContext.IsCurrentUserOp}"
+                                                      Command="{Binding $parent[UserControl].DataContext.OpCommand}"
                                                       CommandParameter="{Binding Nick}" />
                                             <MenuItem Header="Devoice"
-                                                      IsVisible="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).IsCurrentUserOp}"
-                                                      Command="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).DevoiceCommand}"
+                                                      IsVisible="{Binding $parent[UserControl].DataContext.IsCurrentUserOp}"
+                                                      Command="{Binding $parent[UserControl].DataContext.DevoiceCommand}"
                                                       CommandParameter="{Binding Nick}" />
                                             <MenuItem Header="Kick"
-                                                      IsVisible="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).IsCurrentUserOp}"
-                                                      Command="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).KickCommand}"
+                                                      IsVisible="{Binding $parent[UserControl].DataContext.IsCurrentUserOp}"
+                                                      Command="{Binding $parent[UserControl].DataContext.KickCommand}"
                                                       CommandParameter="{Binding Nick}" />
                                             <MenuItem Header="Ban"
-                                                      IsVisible="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).IsCurrentUserOp}"
-                                                      Command="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).BanCommand}"
+                                                      IsVisible="{Binding $parent[UserControl].DataContext.IsCurrentUserOp}"
+                                                      Command="{Binding $parent[UserControl].DataContext.BanCommand}"
                                                       CommandParameter="{Binding Nick}" />
                                         </ContextMenu>
                                     </Button.ContextMenu>
@@ -156,7 +156,7 @@
                     </TextBlock>
                     <ItemsControl ItemsSource="{Binding Regular}">
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate x:DataType="state:UserState">
+                            <DataTemplate x:DataType="state:UserState" x:CompileBindings="False">
                                 <Button HorizontalAlignment="Stretch"
                                         HorizontalContentAlignment="Left"
                                         Background="Transparent"
@@ -164,27 +164,27 @@
                                     <Button.ContextMenu>
                                         <ContextMenu>
                                             <MenuItem Header="Message"
-                                                      Command="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).MessageUserCommand}"
+                                                      Command="{Binding $parent[UserControl].DataContext.MessageUserCommand}"
                                                       CommandParameter="{Binding Nick}" />
                                             <MenuItem Header="Whois"
-                                                      Command="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).WhoisCommand}"
+                                                      Command="{Binding $parent[UserControl].DataContext.WhoisCommand}"
                                                       CommandParameter="{Binding Nick}" />
-                                            <Separator IsVisible="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).IsCurrentUserOp}" />
+                                            <Separator IsVisible="{Binding $parent[UserControl].DataContext.IsCurrentUserOp}" />
                                             <MenuItem Header="Op"
-                                                      IsVisible="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).IsCurrentUserOp}"
-                                                      Command="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).OpCommand}"
+                                                      IsVisible="{Binding $parent[UserControl].DataContext.IsCurrentUserOp}"
+                                                      Command="{Binding $parent[UserControl].DataContext.OpCommand}"
                                                       CommandParameter="{Binding Nick}" />
                                             <MenuItem Header="Voice"
-                                                      IsVisible="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).IsCurrentUserOp}"
-                                                      Command="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).VoiceCommand}"
+                                                      IsVisible="{Binding $parent[UserControl].DataContext.IsCurrentUserOp}"
+                                                      Command="{Binding $parent[UserControl].DataContext.VoiceCommand}"
                                                       CommandParameter="{Binding Nick}" />
                                             <MenuItem Header="Kick"
-                                                      IsVisible="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).IsCurrentUserOp}"
-                                                      Command="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).KickCommand}"
+                                                      IsVisible="{Binding $parent[UserControl].DataContext.IsCurrentUserOp}"
+                                                      Command="{Binding $parent[UserControl].DataContext.KickCommand}"
                                                       CommandParameter="{Binding Nick}" />
                                             <MenuItem Header="Ban"
-                                                      IsVisible="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).IsCurrentUserOp}"
-                                                      Command="{Binding $parent[UserControl].((vm:MemberListViewModel)DataContext).BanCommand}"
+                                                      IsVisible="{Binding $parent[UserControl].DataContext.IsCurrentUserOp}"
+                                                      Command="{Binding $parent[UserControl].DataContext.BanCommand}"
                                                       CommandParameter="{Binding Nick}" />
                                         </ContextMenu>
                                     </Button.ContextMenu>

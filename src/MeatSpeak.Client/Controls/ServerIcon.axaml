@@ -1,10 +1,10 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:state="using:MeatSpeak.Client.Core.State"
-             xmlns:vm="using:MeatSpeak.Client.ViewModels"
              xmlns:conv="using:MeatSpeak.Client.Converters"
              x:Class="MeatSpeak.Client.Controls.ServerIcon"
-             x:DataType="state:ServerState">
+             x:DataType="state:ServerState"
+             x:CompileBindings="False">
 
     <UserControl.Resources>
         <conv:ConnectionStateColorConverter x:Key="ConnectionStateColorConverter" />
@@ -14,7 +14,7 @@
             Padding="0"
             HorizontalAlignment="Center"
             ToolTip.Tip="{Binding Profile.Name}"
-            Command="{Binding $parent[ItemsControl].((vm:ServerListViewModel)DataContext).SelectServerCommand}"
+            Command="{Binding $parent[ItemsControl].DataContext.SelectServerCommand}"
             CommandParameter="{Binding}">
         <Panel>
             <!-- Server circle -->
